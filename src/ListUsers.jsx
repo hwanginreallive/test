@@ -63,7 +63,7 @@ const ListUsers = () => {
         }
   } )).map( (user,index) =>{
         return(
-        <tr key={index} >
+        <tr className='tr'   key={index} >
             <td  > {Object.values(user.name).join(' ')}  </td>
             <td  > {user.login.username}  </td>
             <td   > <img src={user.picture.thumbnail} alt="" />  </td>
@@ -137,7 +137,6 @@ const ListUsers = () => {
         <button onClick={() => handleSort("username")}  >
             <AiOutlineSortDescending></AiOutlineSortDescending>
         </button>
-
       </div>
        <table className='list' >
             <thead>

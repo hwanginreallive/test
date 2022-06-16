@@ -3,7 +3,9 @@
   padding: 0;
   font-family:  sans-serif;
 }
-
+html{
+  scroll-behavior: smooth;
+}
 .list-users{
   padding-top: 50px;
 }
