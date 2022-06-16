@@ -1,0 +1,51 @@
+.list-users{
+  padding-top: 50px;
+}
+.search{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+
+.search p,input{
+  margin-left: 5px;
+  margin-right: 10px;
+  height: 30px;
+}
+.search p{
+  display: block;
+}
+.search input {
+  width: 200px;
+}
+.search button{
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}
+.list {
+  width: 600px;
+  position: relative;
+  align-items: center;
+  left: 50%;
+  transform: translateX(-50%);
+}
+th{
+  text-align: left;
+}
+.list div{
+  width: 170px
+}
+.button{
+  position: absolute;
+  padding-top: 50px;
+  display: flex;
+  margin-left: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.page{
+  padding: 10px;
+}
