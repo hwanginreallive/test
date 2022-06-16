@@ -21,26 +21,29 @@ const ListUsers = () => {
      
   const [listUsers,setListUser] = useState([]) 
   const [saveListUsers,setSaveListUsers] = useState([]) 
-  const [users,setUsers]  = useState([])
   const [page,setPage]  = useState(1)
 
-  const [sort,SetSort] = useState(false)
+  const [order,setOrder] = useState("ASC")
 
+  const [result,setResult] = useState({
+    page: page,
+    results: 10,
+  })
 
-  const inputRef = useRef();
 
   const [searchValue,setSearchValue] = useState('')
-  const [searchUsers,setSearchUsers] = useState([])
 
 
   useEffect(()=>{
     const  fetchUserList = async () =>{
       try {
-         const params = {
+         const setResult = {
           page: page,
-          results: 10
+          results: 100
         }
-        const response = await  userApi.getAll(params);
+        const response = await  userApi.getAll(result);
+        
+        const saveListUsers = setSaveListUsers(response.results)
 
         setListUser(response.results)
       } catch (error) {
@@ -51,52 +54,87 @@ const ListUsers = () => {
   },[page])
 
 
-  const renderUsers =  listUsers.map( (user,index) =>(
+  const renderUsers =   (listUsers.filter((val) =>{
+        if(searchValue.trim() ==="" ){ 
+            return val
+        }
+        else if(val.login.username.toLowerCase().includes(searchValue.trim().toLowerCase())) {
+            return val
+        }
+  } )).map( (user,index) =>{
+        return(
         <tr key={index} >
             <td  > {Object.values(user.name).join(' ')}  </td>
             <td  > {user.login.username}  </td>
             <td   > <img src={user.picture.thumbnail} alt="" />  </td>
         </tr>
-    ))
+        )
+    })
 
   const handleNextPage = () =>{
     setPage(page+1)
+    setResult({
+        page: page,
+        results: 100
+    })
+    handleBackToTop()
   }
 
   const handlePrevPage = () =>{
-     page -1 ===0 ? setPage(page) :setPage(page-1)
+     page -1 ===0 ? setPage(page)  :setPage(page-1)
+    if(page - 1 ===1) {
+        setResult({
+        page: page,
+        results: 10
+    })
+        
+    }
+        handleBackToTop()
   }
 
-  const handleSort =() =>{
+  const handleBackToTop = () =>{
+        document.body.scrollTop= 0;
+        document.documentElement.scrollTop= 0;
+  }
+ 
 
-        const sorted = [...listUsers].sort((a,b)=>
-            a[saveListUsers.name].toLowerCase() > b[saveListUsers.name].toLowerCase() ? 1 : -1
+  const handleSort =(props) =>{
+
+        if(order=== "ASC"){
+
+            const sorted = [...listUsers].sort((a,b)=>
+            a[props].toLowerCase() > b[props].toLowerCase() ? 1 : -1
         );
-        setListUser(sorted);
+            setListUser(sorted);
+            setOrder("DSC");
+        }
+        if(order=== "DSC"){
+            const sorted = [...listUsers.results.name.first].sort((a,b)=>
+            a[saveListUsers.values.props].toLowerCase() < b[props].toLowerCase() ? 1 : -1
+        );
+            setListUser(sorted);
+            setOrder("ASC");
+        }
+        
 
     } 
-   
-  
-
-    // Search by first name
-    const handleSearch = (e) =>{
-        setSearchValue(e.target.value)
-    }
+      
 
 
   return (
       <div className="list-users">
       <div className="search">
-        <p>Tim kiem</p>
-        <input type="text"  
-            onChange={(e) =>handleSearch(e)}
-        />
-        <button >
-            <AiOutlineSearch></AiOutlineSearch>
-        </button>
-        <button >
+        <p>Tìm kiếm</p>
+        <div>
+            <input type="text"  
+                onChange={(e) =>setSearchValue(e.target.value)}
+            />
+        </div>
+    
+        <button onClick={() => handleSort("first")}  >
             <AiOutlineSortAscending></AiOutlineSortAscending>
-        </button><button >
+        </button   >
+        <button onClick={() => handleSort("username")}  >
             <AiOutlineSortDescending></AiOutlineSortDescending>
         </button>
 
@@ -117,6 +155,7 @@ const ListUsers = () => {
           <button onClick={handlePrevPage} >Prev</button>
           <i className='page' >{page}</i>
           <button onClick={handleNextPage} >Next</button>
+          <button onClick={handleBackToTop} >Back To Top</button>
         </div>
 
       
