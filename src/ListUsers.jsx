@@ -34,7 +34,7 @@ const ListUsers = () => {
     fetchUserList()
   },[page ])
 
-  //render list user
+  //render users and search by username
   const renderUsers =   (listUsers.filter((val) =>{
         if(searchValue.trim() ==="" ){ 
             return val
