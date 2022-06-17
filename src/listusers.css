@@ -61,7 +61,9 @@ html{
 }
 th{
   text-align: left;
+  cursor: pointer;
 }
+
 .list div{
   width: 170px
 }
