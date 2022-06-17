@@ -57,7 +57,7 @@ html{
   position: relative;
   align-items: center;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-45%);
 }
 th{
   text-align: left;
