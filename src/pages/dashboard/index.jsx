@@ -22,7 +22,6 @@ const Dashboard = () => {
     const [dataRecords, setDataRecords] = useState([]);
 
     const isAdmin = state?.user?.role === 'admin';
-
     const handleLogout = () => {
         dispatch(
             setUser({
@@ -32,6 +31,22 @@ const Dashboard = () => {
         );
         localStorage.clear();
         toast.success('Đăng xuất thành công');
+    };
+
+    const handleChangeTitle = (e) => {
+        if (title.length <= 200) {
+            setTitle(e.target.value);
+        } else {
+            toast.warning('Tiêu đề đã vượt quá giới hạn ký tự');
+        }
+    };
+
+    const handleChangeContent = (e) => {
+        if (content.length <= 500) {
+            setContent(e.target.value);
+        } else {
+            toast.warning('Nội dung đã vượt quá giới hạn ký tự');
+        }
     };
 
     const handleRowClick = (event, params) => {
@@ -55,33 +70,22 @@ const Dashboard = () => {
             });
             setIsPopupAddOpen(false);
             toast.success('Thêm ghi chú thành công');
-        }
-    };
-
-    const handleChangeTitle = (e) => {
-        if (title.length <= 200) {
-            setTitle(e.target.value);
         } else {
-            toast.warning('Tiêu đề đã vượt quá giới hạn ký tự');
-        }
-    };
-
-    const handleChangeContent = (e) => {
-        if (content.length <= 500) {
-            setContent(e.target.value);
-        } else {
-            toast.warning('Nội dung đã vượt quá giới hạn ký tự');
+            toast.warning('Vui lòng nhập trường còn thiếu');
         }
     };
 
     const handleEditRecord = () => {
-        if (title !== '' && content !== '') {
-            const dataFilter = dataRecords.find((item) => item.id === dataSelected[0]);
-            dataFilter.title = title;
-            dataFilter.content = content;
+        const currentValue = dataRecords.find((item) => item.id === dataSelected[0]);
+
+        if (title !== '' && content !== '' && (title !== currentValue.title || content !== currentValue.content)) {
+            currentValue.title = title;
+            currentValue.content = content;
+            setIsPopupAddOpen(false);
+            toast.success('Sửa ghi chú thành công');
+        } else {
+            toast.warning('Thay đổi giá trị để cập nhật');
         }
-        setIsPopupAddOpen(false);
-        toast.success('Sửa ghi chú thành công');
     };
 
     const handleDeleteRecord = () => {
@@ -91,9 +95,16 @@ const Dashboard = () => {
         toast.success('Xóa ghi chú thành công');
     };
 
+    const handleOpenPopupAdd = () => {
+        setIsEdit(false);
+        setContent('');
+        setTitle('');
+        setIsPopupAddOpen(true);
+    };
+
     useEffect(() => {
         if (dataRecordRes.length > 0) setDataRecords(dataRecordRes);
-    }, [dataRecordRes]);
+    }, []);
 
     const columns = [
         { field: 'stt', headerName: 'STT', width: 90 },
@@ -149,12 +160,7 @@ const Dashboard = () => {
                 </div>
                 {isAdmin && (
                     <div className="flex gap-2">
-                        <Button
-                            variant="contained"
-                            color="success"
-                            endIcon={<AddIcon />}
-                            onClick={() => setIsPopupAddOpen(true)}
-                        >
+                        <Button variant="contained" color="success" endIcon={<AddIcon />} onClick={handleOpenPopupAdd}>
                             Thêm
                         </Button>
 

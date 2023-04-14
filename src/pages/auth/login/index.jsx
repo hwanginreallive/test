@@ -2,8 +2,6 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import Grid from '@mui/material/Grid';
-import Link from '@mui/material/Link';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { useContext, useState } from 'react';
@@ -34,7 +32,7 @@ export default function Login() {
             localStorage.setItem('access_token', username);
             localStorage.setItem('role', isMatch?.role);
 
-            toast.success('Login success', {
+            toast.success('Đăng nhập thành công', {
                 position: 'top-right',
                 autoClose: 3000,
                 hideProgressBar: false,
@@ -45,7 +43,7 @@ export default function Login() {
             router('/dashboard');
         } else {
             setError(true);
-            toast.error('Error with login', {
+            toast.error('Có lỗi khi đăng nhập', {
                 position: 'top-right',
                 autoClose: 3000,
                 hideProgressBar: false,
@@ -59,7 +57,7 @@ export default function Login() {
     return (
         <div className="mt-[150px] w-[420px] mx-auto">
             <Typography className="text-center" component="h1" variant="h5">
-                Log in
+                Đăng nhập
             </Typography>
             <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                 <TextField
@@ -67,7 +65,7 @@ export default function Login() {
                     required
                     fullWidth
                     id="username"
-                    label="Username"
+                    label="Tài khoản"
                     name="username"
                     error={error}
                     autoComplete="username"
@@ -78,28 +76,16 @@ export default function Login() {
                     required
                     fullWidth
                     name="password"
-                    label="Password"
+                    label="Mật khẩu"
                     type="password"
                     error={error}
                     id="password"
                     autoComplete="current-password"
                 />
-                <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
+                <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Ghi nhớ" />
                 <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-                    Sign In
+                    Đăng nhập
                 </Button>
-                <Grid container>
-                    <Grid item xs>
-                        <Link href="#" variant="body2">
-                            Forgot password?
-                        </Link>
-                    </Grid>
-                    <Grid item>
-                        <Link href="#" variant="body2">
-                            {"Don't have an account? Sign Up"}
-                        </Link>
-                    </Grid>
-                </Grid>
             </Box>
         </div>
     );
