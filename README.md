@@ -18,10 +18,10 @@ You may also see any lint errors in the console.
 
 [https://643944785916a90bf038126a--extraordinary-naiad-ceea06.netlify.app/](https://643944785916a90bf038126a--extraordinary-naiad-ceea06.netlify.app/)
 
-To login with role admin :
+To login with role admin :\
 -username: user01
 -password: 123456
 
-To login with role user :
+To login with role user :\
 -username: user02
 -password: 123456
