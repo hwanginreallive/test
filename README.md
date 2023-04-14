@@ -16,7 +16,7 @@ You may also see any lint errors in the console.
 
 ### `Link deployd`
 
-[https://643944785916a90bf038126a--extraordinary-naiad-ceea06.netlify.app/](https://643944785916a90bf038126a--extraordinary-naiad-ceea06.netlify.app/)
+[https://idyllic-cocada-0e5813.netlify.app](https://idyllic-cocada-0e5813.netlify.app)
 
 To login with role admin :\
 -username: user01
