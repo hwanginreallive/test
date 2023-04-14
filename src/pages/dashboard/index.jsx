@@ -53,8 +53,25 @@ const Dashboard = () => {
                 title: title,
                 content: content,
             });
+            setIsPopupAddOpen(false);
+            toast.success('Thêm ghi chú thành công');
         }
-        setIsPopupAddOpen(false);
+    };
+
+    const handleChangeTitle = (e) => {
+        if (title.length <= 200) {
+            setTitle(e.target.value);
+        } else {
+            toast.warning('Tiêu đề đã vượt quá giới hạn ký tự');
+        }
+    };
+
+    const handleChangeContent = (e) => {
+        if (content.length <= 500) {
+            setContent(e.target.value);
+        } else {
+            toast.warning('Nội dung đã vượt quá giới hạn ký tự');
+        }
     };
 
     const handleEditRecord = () => {
@@ -64,12 +81,14 @@ const Dashboard = () => {
             dataFilter.content = content;
         }
         setIsPopupAddOpen(false);
+        toast.success('Sửa ghi chú thành công');
     };
 
     const handleDeleteRecord = () => {
         const dataFilter = dataRecords.filter((item) => !dataSelected.includes(item.id));
         setDataRecords(dataFilter);
         setIsPopupDeleteOpen(false);
+        toast.success('Xóa ghi chú thành công');
     };
 
     useEffect(() => {
@@ -172,7 +191,7 @@ const Dashboard = () => {
                         fullWidth
                         disabled={!isAdmin}
                         value={title}
-                        onChange={(e) => setTitle(e.target.value)}
+                        onChange={(e) => handleChangeTitle(e)}
                     />
                     <textarea
                         className="p-4 border border-gray-400 rounded-md focus:outline-[#1976d2]"
@@ -183,7 +202,7 @@ const Dashboard = () => {
                         placeholder="Nhập nội dung ..."
                         disabled={!isAdmin}
                         value={content}
-                        onChange={(e) => setContent(e.target.value)}
+                        onChange={(e) => handleChangeContent(e)}
                     />
                     <div className="flex justify-end gap-3">
                         {isAdmin && (
