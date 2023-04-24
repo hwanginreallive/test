@@ -18,6 +18,10 @@ You may also see any lint errors in the console.
 
 [https://idyllic-cocada-0e5813.netlify.app](https://idyllic-cocada-0e5813.netlify.app)
 
+Username: [text input field]
+
+Password: [password input field]
+
 To login with role admin :\
 -username: user01
 -password: 123456
